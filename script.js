@@ -1,39 +1,4 @@
 
-// rock paper scissors game
-
-// 2 players, user vs computer
-
-// 3 possible moves each player can use per turn: rock, paper, or scissors
-
-// it's best out of 3, so there has to be some score keeping system
-
-// rock beats scissors; scissors beats paper; paper beats rock; same answers are ties
-
-// score keeping, testing if game should continue or if it's been won
-// random machine that gives computer it's guess, input machine that takes user guess
-
-// 1. rewrite the problem
-// Create a Rock Paper Scissors game. The user will submit their move, after which it will be compared to the computer's move. the winner of the round is decided by traditional rock paper scissors rules. if it's a tie, they redo the round. then repeat until best of 3.
-// No UI (console program for now). Inputs? A user's guess, which we test to see if its rock paper scissors. Anything else we say error. Outputs? We need to ask the user for their guess. The winner of the round is printed to the console. The winner of the game is printed to the console.
-
-// 2. plan your solution (w/ pseudocode afterward too)
-// user runs game. game calls get user move. game checks if move is valid. if not, quit game.
-// the user submits a choice: either rock paper or scissors. anything else is rejected
-// that guess is tested against the computer's choice
-// whoever wins the round has a point added to their score
-// if the round ends in a tie, no point is added
-// start next round (see first instruction)
-// if round === 3, compare scores and announce the winner
-// 
-// 
-
-// 3. 
-// break the problem into subproblems and solve one by one
-
-// todo: push to github
-// todo: write post-mortem (don't let perfect be the enemy of good!)
-// task, avoiding assignment notes (always best AND more fun to see if you can figure it out yourself without extra help–use the notes as hints if you get stuck), thinking and writing before coding (thinking about the game a bit, writing a few throwaway notes, then rewriting the problem in my own words, thinking through UI, necessary inputs, necessary outputs, what needs to happen to go from a to b, then planning my solution by writing high-level pseudocode instructions step by step for what happens at each step of the game.), starting with logic of how to test winner, building out components individually and testing them, turning everything into a function so the game loop is clean, trying to make functions do only one thing (i.e. splitting out lots of the repetitive logic from calcRoundWinner() into a new function updateGameState())
-
 function rockPaperScissors() {
     let usersMove;
     let computersMove;
