@@ -21,10 +21,13 @@ function rockPaperScissors() {
     // GAME LOGIC
     function getUsersMove() {
         usersMove = prompt('Rock, paper, or scissors?');
-        usersMove = usersMove.toLowerCase();
     }
 
     function checkValidMove() {
+        if (usersMove === null) {
+            return false;
+        }
+        usersMove = usersMove.toLowerCase();
         if (usersMove === 'rock') {
             return true;
         } else if (usersMove === 'paper') {
@@ -54,7 +57,7 @@ function rockPaperScissors() {
                 updateGameState('user', 'Paper', 'rock');
                 return;
             } else {
-                console.log(`It's a tie! Repeat round ${round}.`);
+                console.log(`It's a tie! Repeat round ${round}...`);
             }
         }
         // if computer plays paper
@@ -66,7 +69,7 @@ function rockPaperScissors() {
                 updateGameState('user', 'Scissors', 'paper');
                 return;
             } else {
-                console.log(`It's a tie! Repeat round ${round}.`);
+                console.log(`It's a tie! Repeat round ${round}...`);
             }
         }
         // if computer plays scissors
@@ -78,7 +81,7 @@ function rockPaperScissors() {
                 updateGameState('user', 'Rock', 'paper');
                 return;
             } else {
-                console.log(`It's a tie! Repeat round ${round}.`);
+                console.log(`It's a tie! Repeat round ${round}...`);
             }
         }
     }
