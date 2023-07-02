@@ -10,13 +10,17 @@
         #score > * {
             display: inline;
         }
+        button:disabled {
+            /*  */
+        }
     </style>
 </head>
 <body>
     <div class="buttons">
-        <button id="rock">Rock</button>
-        <button id="paper">Paper</button>
-        <button id="scissors">Scissors</button>
+        <button id="rock" class="toggle">Rock</button>
+        <button id="paper" class="toggle">Paper</button>
+        <button id="scissors" class="toggle">Scissors</button>
+        <button id="reset" class="toggle" disabled>New Game</button>
     </div>
     <div id="output">
         <div id="scoreboard">

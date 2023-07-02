@@ -2,7 +2,8 @@
 let userScore = 0;
 let computerScore = 0;
 let round = 0;
-const maxRounds = 3;
+let gameOver = false;
+const maxRounds = 5;
 
 const rockButton = document.getElementById('rock');
 const paperButton = document.getElementById('paper');
@@ -12,43 +13,40 @@ const gameLogUI = document.getElementById('game-log');
 const roundNumberUI = document.getElementById('round-number');
 const userScoreUI = document.getElementById('user-score');
 const computerScoreUI = document.getElementById('computer-score');
+const elementsToToggle = document.getElementsByClassName('toggle');
+const resetButton = document.getElementById('reset');
 
 rockButton.addEventListener('click', () => playRound('rock'));
 paperButton.addEventListener('click', () => playRound('paper'));
 scissorsButton.addEventListener('click', () => playRound('scissors'));
+resetButton.addEventListener('click', () => resetGame());
+
+function resetGame() {
+    userScore = 0;
+    computerScore = 0;
+    round = 0;
+    gameOver = false;
+    gameLogUI.textContent = '';
+    Array.from(elementsToToggle).forEach(element => element.toggleAttribute('disabled'));
+    userScoreUI.textContent = `User: ${userScore}`;
+    computerScoreUI.textContent = `Computer: ${computerScore}`;
+    roundNumberUI.textContent = `Round 1`;
+}
+
 
 function playRound(userMove) {
     const computerMove = getComputerMove();
     const roundResults = calcRoundWinner(userMove, computerMove);
-    console.log(roundResults);
     updateGameState(roundResults);
+    checkForWinner();
 
-    // checkForWinner()
-    if (userScore === computerScore) {
-        return;
-    }
-    if (round === maxRounds) {
-        if (userScore > computerScore) {
-            console.log('user wins!');
-            updateGameLogUI('user wins game!!!');
-        } else {
-            updateGameLogUI('computer wins game :( :(');
-        }
-    }
-    
-    // 
-    // 
-    // 
-    // 
-    // 
-    // 
-
-    // new round, reset rounds, scores, ui, allow user to set number of rounds
-
-
-    // 0 = rock, 1 = paper, 2 = scissors
     function getComputerMove() {
+        // 0 = rock, 1 = paper, 2 = scissors
         return Math.floor(Math.random() * 3);
+    }
+
+    function timestamp() {
+        return new Date().toLocaleTimeString();
     }
 
     function calcRoundWinner(userMove, computerMove) {
@@ -89,13 +87,15 @@ function playRound(userMove) {
         const computerMove = roundResults.computerMove;
 
         if (roundResults.roundEndedInTie) {
-            updateGameLogUI(`tie! repeat...`);
+            updateGameLogUI(`${timestamp()} — tie! repeat...`);
         } else if (roundResults.userWonRound) {
-            updateGameLogUI(`user plays ${userMove}, computer plays ${computerMove}. user wins round!`);
-            updateGameStateUI(userScore++);
+            userScore++;
+            updateGameLogUI(`${timestamp()} — user plays ${userMove}, computer plays ${computerMove}. 👨‍💻 user wins round!`);
+            updateGameStateUI();
         } else {
-            updateGameLogUI(`user plays ${userMove}, computer plays ${computerMove}. user loses round :(`);
-            updateGameStateUI(computerScore++);
+            computerScore++;
+            updateGameLogUI(`${timestamp()} — user plays ${userMove}, computer plays ${computerMove}. 🖥 computer wins round :(`);
+            updateGameStateUI();
         }
     }
 
@@ -105,51 +105,42 @@ function playRound(userMove) {
         gameLogUI.appendChild(p);
     }
 
-    function updateGameStateUI() {
-        round++;
+    function updateGameStateUI(gameOver = false) {
+        if (gameOver) {
+            roundNumberUI.textContent += ' — End of Game!'
+            Array.from(elementsToToggle).forEach(element => element.toggleAttribute('disabled'));
+            return;
+        }
+        if (!gameOver) {
+            round++;
+        }
         userScoreUI.textContent = `User: ${userScore}`;
         computerScoreUI.textContent = `Computer: ${computerScore}`;
         roundNumberUI.textContent = `End of Round ${round}`;
     }
-}
 
-
-
-function updateGameState(roundWinner, winningMove, losingMove) {
-    if (roundWinner === "computer") {
-        computersScore++;
-        console.log(`🖥 Computer wins! ${winningMove} beats ${losingMove}.`);
-    } else {
-        usersScore++;
-        console.log(`👨‍💻 User wins! ${winningMove} beats ${losingMove}.`);
+    function checkForWinner() {
+        if (userScore === computerScore) {
+            return;
+        }
+        if (round === maxRounds) {
+            if (userScore > computerScore) {
+                endGame('user');
+            } else {
+                endGame('computer');
+            }
+        }
     }
-    printScores();
-    round++;
-}
 
-function noGameWinner() {
-    if (usersScore === 2 || computersScore === 2) {
-        return false;
+    function endGame(winner) {
+        gameOver = true;
+        if (winner === 'user') {
+            updateGameLogUI(`${timestamp()} — 🥳 you win! ${winner} wins game!!!`);
+        } else {
+            updateGameLogUI(`${timestamp()} — 😭 you lose! ${winner} wins game :( :(`);
+        }
+        updateGameStateUI(gameOver);
     }
-    return true;
-}
-
-function printGameWinner() {
-    if (computersScore > usersScore) {
-        console.log(`😭 You lose! Computer is our winner!`);
-    } else {
-        console.log(`🥳 You win! User is our winner!!`);
-    }
-}
-
-function rockPaperScissors() {
-    // GAME LOOP
-    while (round <= 3 && noGameWinner()) {
-        getUsersMove();
-        getComputersMove();
-        calcRoundWinner();
-    }
-    printGameWinner();
 }
 
 
