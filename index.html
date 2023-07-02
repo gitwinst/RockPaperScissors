@@ -6,12 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="script.js" defer></script>
+    <style>
+        #score > * {
+            display: inline;
+        }
+    </style>
 </head>
 <body>
     <div class="buttons">
         <button id="rock">Rock</button>
         <button id="paper">Paper</button>
         <button id="scissors">Scissors</button>
+    </div>
+    <div id="output">
+        <div id="scoreboard">
+            Score:
+            <div id="score">
+                <div id="user-score">User: 0</div> — 
+                <div id="computer-score">Computer: 0</div>
+            </div>
+        </div>
+        <div id="round-number">Round 1</div>
+        <div id="game-log"></div>
     </div>
 </body>
 </html>
