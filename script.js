@@ -107,7 +107,7 @@ function playRound(userMove) {
         if (userScore === computerScore) {
             return;
         }
-        if (round === MAXROUNDS) {
+        if (userScore === 5 || computerScore === 5) {
             if (userScore > computerScore) {
                 endGame('user');
             } else {
@@ -129,7 +129,7 @@ function playRound(userMove) {
 
 
 
-// console.log(`Hi! Want to play Rock Paper Scissors via console?? WELL NOW YOU CAN! Simply type rps() and press enter, and let the games begin...`)
+console.log(`Want to play Rock Paper Scissors via console?? WELL NOW YOU CAN! Simply type rps() and press enter. Good luck!`)
 function rps() {
     let usersMove;
     let computersMove;
